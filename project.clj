@@ -18,9 +18,10 @@
                  [clj-http "3.9.0"]
                  [com.cognitect/transit-clj "0.8.309"]
                  [jarohen/chord "0.8.1"]
-                 [com.taoensso/timbre "4.10.0"]]
-  :repositories {"mvn"          "https://mvnrepository.com"
-                 "jitpack"      "https://jitpack.io"}
+                 [com.taoensso/timbre "4.10.0"]
+                 [com.microsoft.azure/azure-storage "1.2.0"]]
+  :repositories {"mvn"     "https://mvnrepository.com"
+                 "jitpack" "https://jitpack.io"}
 
   :jvm-opts ["-server" "-Dconf=.lein-env"]
   :source-paths ["src/clj"]
