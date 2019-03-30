@@ -1,0 +1,3 @@
+{:phrases-database-url ""
+ :phrases-dir          ""
+ :parallel            8}
