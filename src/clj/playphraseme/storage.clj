@@ -66,6 +66,7 @@
            (recur)))))))
 
 (defn start []
+  (println "storage start")
   (mount/start)
   (future
    (sync-video)))
