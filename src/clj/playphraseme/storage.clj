@@ -58,6 +58,8 @@
                          (catch Exception e
                            (println "Error:" e)
                            (Thread/sleep 10000))))))
+           (println "Uploaded phrases:"
+                    (phrases/count-phrases {:have-video true :state 1}))
            (recur)))))))
 
 (defn start []
@@ -65,6 +67,8 @@
   (sync-video))
 
 (comment
+
+  (mount/start)
 
   (start)
 
