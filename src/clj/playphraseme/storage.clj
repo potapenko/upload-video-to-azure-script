@@ -46,7 +46,9 @@
    (loop []
      (let [phrases (get-next-phrases)]
        (if (nil? phrases)
-         (recur)
+         (do
+           (println "nil phrases!")
+           (recur))
          (when-not (empty? phrases)
            (->> phrases
                 (partition-all parallel)
@@ -67,7 +69,5 @@
   (start)
 
   (phrases/count-phrases {:have-video true :state 1})
-
-  (azure/list cnt)
 
   )
