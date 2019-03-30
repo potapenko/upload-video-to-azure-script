@@ -67,12 +67,12 @@
 
 (defn start []
   (mount/start)
-  (sync-video))
+  (future
+   (sync-video)))
 
 (comment
 
-  (future
-   (start))
+  (start)
 
   (phrases/count-phrases {:have-video true :state 1})
 
