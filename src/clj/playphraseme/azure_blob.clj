@@ -1,4 +1,4 @@
-(ns playphraseme.blob
+(ns playphraseme.azure-blob
   (:refer-clojure :exclude [list])
   (:require [taoensso.timbre :as log])
   (:require [clojure.java.io :as io])

@@ -1,18 +1,16 @@
 (ns playphraseme.queries.phrases
-  (:require [mount.core :as mount]
-            [monger.collection :as mc]
-            [clojure.pprint :refer [pprint]]
+  (:require [monger.collection :as mc]
             [monger.operators :refer :all]
-            [playphraseme.playphraseme.db :refer :all]
-            [playphraseme.playphraseme.doc-id :refer :all]
-            [playphraseme.playphraseme.util :as util]
-            [playphraseme.playphraseme.queries.movies :as movies]
+            [mount.core :as mount]
+            [playphraseme.doc-id :refer :all]
+            [playphraseme.db :refer :all]
             [taoensso.timbre :as log]))
 
 (def coll "phrases")
 
 (defn- migrate []
   (mc/ensure-index db coll {:have-video 1 :start 1})
+  (mc/ensure-index db coll {:have-video 1 :state 1})
   (mc/ensure-index db coll {:start 1}))
 
 (mount/defstate migrations-phrases
@@ -78,24 +76,3 @@
 (defn get-phrases-by-movie-id [^String movie-id]
   (find-phrases {:movie movie-id}))
 
-(comment
-
-  (future
-    (doseq [x (get-wrong-movies)]
-      (let [movie (->> x :movie movies/get-movie-by-id)]
-        (log/info (util/movie-info movie) "->" (:count x) "words:" (:words x)))))
-
-
-  (count (get-wrong-movies))
-
-  (->>
-   (get-wrong-movies)
-   (map :count)
-   (reduce +))
-
-
-  (->> (get-short-phrases)
-       (map :text))
-
-
- )
