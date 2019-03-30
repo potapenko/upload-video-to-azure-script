@@ -1,0 +1,9 @@
+-*.log
+-/target
+-/.git
+-/lib
+-/figwheel_server.log
+-/log
+-big-text.txt
+-.lein-repl-history
+-/torrents-grabbed

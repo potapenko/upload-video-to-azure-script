@@ -1,0 +1,17 @@
+/target
+/classes
+/checkouts
+/work
+pom.xml
+/lib
+/.lein-*
+profiles.clj
+/.env*
+.nrepl-port
+/log
+.#*
+.idea/
+*.iml
+node_modules
+package-lock.json
+resources/server-id.txt
