@@ -18,7 +18,7 @@
 
 (defn mark-not-have-video [{:keys [id] :as phrase}]
   (println "Not have video!" id)
-  (phrases/update-phrase!
+  #_(phrases/update-phrase!
    (assoc phrase :have-video false)))
 
 (defn upload-phrase-video [{:keys [id movie] :as phrase}]
@@ -35,7 +35,7 @@
 (defn get-next-phrases []
   (try
    (phrases/find-phrases {:have-video true
-                          :state      nil} 0 10)
+                          :state      nil} 0 1000)
    (catch Exception e
      (println "Error get phrases from db:" e)
      (Thread/sleep 10000)
