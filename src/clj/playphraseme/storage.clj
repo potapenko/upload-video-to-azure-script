@@ -59,8 +59,10 @@
                            (println "Error:" e)
                            (Thread/sleep 10000)))))
                 doall)
+           (println "-----------------------------------")
            (println "Uploaded phrases:"
                     (phrases/count-phrases {:have-video true :state 1}))
+           (println "-----------------------------------")
            (recur)))))))
 
 (defn start []
@@ -69,9 +71,8 @@
 
 (comment
 
-  (mount/start)
-
-  (start)
+  (future
+   (start))
 
   (phrases/count-phrases {:have-video true :state 1})
 
