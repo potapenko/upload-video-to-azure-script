@@ -52,12 +52,13 @@
          (when-not (empty? phrases)
            (->> phrases
                 (partition-all parallel)
-                (map (fn [part]
+                (pmap (fn [part]
                        (try
-                         (->> part (map upload-phrase-video))
+                         (->> part (map upload-phrase-video) doall)
                          (catch Exception e
                            (println "Error:" e)
-                           (Thread/sleep 10000))))))
+                           (Thread/sleep 10000)))))
+                doall)
            (println "Uploaded phrases:"
                     (phrases/count-phrases {:have-video true :state 1}))
            (recur)))))))
