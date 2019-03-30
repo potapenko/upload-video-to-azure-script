@@ -28,5 +28,5 @@
   :java-source-paths ["src/java"]
   :resource-paths ["resources"]
   :target-path "target/%s/"
-  :main playphraseme.phrases-extractor.core
+  :main playphraseme.core
   :profiles {:uberjar {:aot :all}})
