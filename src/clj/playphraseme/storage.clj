@@ -32,21 +32,31 @@
             (mark-phrase-uploaded phrase)))
         (mark-not-have-video phrase))))
 
+(defn get-next-phrases []
+  (try
+   (phrases/find-phrases {:have-video true
+                          :state      nil} 0 10)
+   (catch Exception e
+     (println "Error get phrases from db:" e)
+     (Thread/sleep 10000)
+     nil)))
+
 (defn sync-video []
   (let [{:keys [parallel]} env]
    (loop []
-     (try
-      (let [phrases (phrases/find-phrases {:have-video true
-                                           :state      nil} 0 10)]
-        (when-not (empty? phrases)
-          (->> phrases
-               (partition-all parallel)
-               (map (fn [part]
-                      (->> part (map upload-phrase-video)))))
-          #_(recur)))
-      (catch Exception e
-        (println "Error:" e)
-        (Thread/sleep 10000))))))
+     (let [phrases (get-next-phrases)]
+       (if (nil? phrases)
+         (recur)
+         (when-not (empty? phrases)
+           (->> phrases
+                (partition-all parallel)
+                (map (fn [part]
+                       (try
+                         (->> part (map upload-phrase-video))
+                         (catch Exception e
+                           (println "Error:" e)
+                           (Thread/sleep 10000))))))
+           (recur)))))))
 
 (defn start []
   (mount/start)
